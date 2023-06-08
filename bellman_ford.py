@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 class Grafo:
     def __init__(self, vertices):
         self.V = vertices
@@ -10,23 +11,22 @@ class Grafo:
         self.grafo.append([u, v, peso])
 
     def bellman_ford(self, origen):
-        distancias = [float('inf')] * self.V
+        distancias = [float("inf")] * self.V
         distancias[origen] = 0
-
         for _ in range(self.V - 1):
             for u, v, peso in self.grafo:
-                if distancias[u] != float('inf') and distancias[u] + peso < distancias[v]:
+                if (
+                    distancias[u] != float("inf")
+                    and distancias[u] + peso < distancias[v]
+                ):
                     distancias[v] = distancias[u] + peso
-
         # Verificar si hay ciclos de peso negativo
         for u, v, peso in self.grafo:
-            if distancias[u] != float('inf') and distancias[u] + peso < distancias[v]:
+            if distancias[u] != float("inf") and distancias[u] + peso < distancias[v]:
                 print("El grafo contiene un ciclo de peso negativo")
                 return
-
         # Graficar el grafo
         self.dibujar_grafo()
-
         # Imprimir las distancias más cortas
         for i in range(self.V):
             print(f"Distancia desde el origen hasta el nodo {i}: {distancias[i]}")
@@ -38,12 +38,13 @@ class Grafo:
         plt.ylabel("Peso")
 
         for u, v, peso in self.grafo:
-            plt.plot([u, v], [0, peso], 'bo-')
+            plt.plot([u, v], [0, peso], "bo-")
 
         plt.show()
 
+
 # Crear un grafo de ejemplo
-g = Grafo(5)
+g = Grafo(10)
 g.agregar_arista(0, 1, -1)
 g.agregar_arista(0, 2, 4)
 g.agregar_arista(1, 2, 3)
